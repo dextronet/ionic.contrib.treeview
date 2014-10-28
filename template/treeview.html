@@ -1,0 +1,13 @@
+<script type="text/ng-template" id="tree_item_renderer.html">
+  <div ng-click="actions.select(item)" ng-class="{active: item == selected}" ng-style="helpers.getTreePadding(depth)">
+    <div class="tree-item">
+      <span ng-if="item.hasChildren()" class="arrow entypo" ng-click="helpers.toggleExpanded(item); $event.stopPropagation()">{{ item.expanded | arrow }}</span><span class="fa fa-folder tree-icon"></span>{{item.get('name')}}
+    </div>
+  </div>
+  <ul ng-show="item.expanded" class="expand subnodes">
+    <li ng-repeat="item in item.children" ng-include="'tree_item_renderer.html'" ng-init="depth = $parent.depth + 1"></li>
+  </ul>
+</script>
+<ul>
+  <li ng-repeat="item in collection" ng-include="'tree_item_renderer.html'" ng-init="depth = 0"></li>
+</ul>

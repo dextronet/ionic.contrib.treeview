@@ -1,0 +1,35 @@
+.tree-item-expanded {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg); }
+
+.tree-item .tree-item-number {
+  display: inline-block;
+  padding-left: 14px;
+  padding-top: 1px;
+  float: left; }
+.tree-item .checkbox {
+  padding: 0 0 0 14px;
+  float: left; }
+.tree-item .tree-item-text {
+  display: inline-block;
+  padding-top: 1px;
+  padding-left: 15px;
+  padding-right: 50px;
+  padding-bottom: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%; }
+.tree-item .tree-item-with-checkbox {
+  padding-top: 13px;
+  padding-bottom: 13px; }
+  .tree-item .tree-item-with-checkbox .tree-item-text {
+    padding-top: 4px;
+    padding-bottom: 0;
+    padding-left: 11px; }
+.tree-item .tree-item-with-number .checkbox {
+  padding-left: 11px; }
+.tree-item .tree-item-with-number.tree-item-with-checkbox .tree-item-text {
+  padding-right: 85px; }
+.tree-item .tree-item-with-number.tree-item-with-checkbox .tree-item-number {
+  padding-top: 4px; }
