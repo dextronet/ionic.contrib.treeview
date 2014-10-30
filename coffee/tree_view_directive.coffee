@@ -26,6 +26,10 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         ($scope, $element, $attrs, ctrls) ->
 
           buildTreeRows = (items, level, number, visible) ->
+            # set custom 
+            if $attrs.scrollHeight
+              $element.parent()[0]?.style.height = $attrs.scrollHeight;
+            
             number = [] unless number
             for item, index in items
               rowNumber = number.slice()
@@ -35,7 +39,7 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
                 level: level
                 number: rowNumber
                 showCheckbox: item.showCheckbox
-              if typeof item.visible != 'undefined'
+              if item.visible == false
                 row.visible = item.visible
               else
                 row.visible = visible

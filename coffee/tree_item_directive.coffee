@@ -31,10 +31,13 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
             return { 'padding-left': padding + 'px' }
           
           $scope.getVisibility = (row) ->
-            if row.item.children?.length > 0
-              'visible'
+            if row.item.hideExpander
+              return 'hidden'
             else
-              'hidden'
+              if row.item.children?.length > 0
+                'visible'
+              else
+                'hidden'
 
           if $scope.showNumbers
             treeItemNumberClass = "tree-item-with-number"

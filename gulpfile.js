@@ -10,7 +10,13 @@ var coffee = require('gulp-coffee');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  coffee: ['./coffee/**/*.coffee']
+  coffee: [
+    './coffee/tree_view_directive.coffee',
+    './coffee/tree_view_controller.coffee',
+    './coffee/tree_view_view.coffee',
+    './coffee/tree_item_directive.coffee',
+    './coffee/**/*.coffee'
+  ]
 };
 
 gulp.task('default', ['sass', 'coffee']);
