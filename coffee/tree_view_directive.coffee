@@ -10,8 +10,10 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         "^?$ionicScroll"
       ]
       #controller: "$treeView"
-      template: "<tree-item 
-        ng-repeat=\"row in treeRows | filter:{visible:true} track by row.item.id\" row=\"row\">{{row.item.name}}</tree-item>"
+      template: "<tree-item ng-style=\"{width: fullWidth}\" 
+        collection-item-width=\"'100%'\" collection-item-height=\"54\" 
+        collection-repeat=\"row in treeRows | filter:{visible:true} track by row.item.id\" 
+        row=\"row\">{{row.item.name}}</tree-item>",
       scope: 
         onExpandChange: '&'
         onCheckboxChange: '&'
@@ -23,11 +25,12 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         hasMoreData: '='
       compile: ($element, $attr) ->
         listEl = angular.element("<div class=\"tree-view list\">").append($element.contents())
-        infiniteScroll = angular.element("<ion-infinite-scroll ng-if=\"hasMoreData()\" on-infinite=\"fetchData()\" distance=\"1%\">")
-        $element.append(listEl).append(infiniteScroll);
+        $element.append(listEl);
         
         ($scope, $element, $attrs, ctrls) ->
-
+#      	  $scope.fullWidth = 2 + $element[0].parentNode.offsetWidth + 'px'
+          $scope.fullWidth = document.body.clientWidth + 'px'
+          
           buildTreeRows = (items, level, number, visible) ->
             # set custom 
             if $attrs.scrollHeight

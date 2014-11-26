@@ -39,22 +39,26 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
               else
                 'hidden'
 
-          if $scope.showNumbers
-            treeItemNumberClass = "tree-item-with-number"
-            number = angular.element("<span class=\"tree-item-number\">#{$scope.row.number.join('.')}:</span>")
-          else
-            treeItemNumberClass = ""
+#          if $scope.showNumbers
+#          treeItemNumberClass = "tree-item-with-number"
+          number = angular.element("<span ng-if=\"showNumbers\" class=\"tree-item-number\">{{row.number.join('.')}}:</span>")
+#          else
+#            treeItemNumberClass = ""
 
-          showCheckbox = $scope.row.showCheckbox || ($scope.showCheckboxes && $scope.row.showCheckbox != false)
-          if showCheckbox
-            treeItemCheckboxClass = "tree-item-with-checkbox"
-            checkbox = angular.element("<label class=\"checkbox\"><input type=\"checkbox\" 
-              ng-checked=\"row.item.done\" ng-click=\"checkboxClick($event, row)\"></label>")
-          else
-            treeItemCheckboxClass = ""
+#          showCheckbox = $scope.row.showCheckbox || ($scope.showCheckboxes && $scope.row.showCheckbox != false)
+#          if showCheckbox
+#            treeItemCheckboxClass = "tree-item-with-checkbox"
+          checkbox = angular.element("<label
+            ng-if=\"row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)\"
+            class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.item.done\" 
+            ng-click=\"checkboxClick($event, row)\">
+            </label>") 
+#          else
+#            treeItemCheckboxClass = ""
 
           containerLink = angular.element("<a 
-            class=\"item-content item-icon-right #{treeItemCheckboxClass} #{treeItemNumberClass}\" 
+            class=\"item-content item-icon-right\" 
+            ng-class=\"{'tree-item-with-number': showNumbers, 'tree-item-with-checkbox': row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)}\"
             ng-click=\"rowClick(row)\"
             ng-style=\"getTreePadding(row)\"
             ></a>")
@@ -68,11 +72,10 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 
           textContainer.append $element.contents()
 
-          if $scope.showNumbers
-            containerLink.append(number)
+#          if $scope.showNumbers
+          containerLink.append(number)
           
-          if showCheckbox
-            containerLink.append(checkbox)
+          containerLink.append(checkbox)
           
           containerLink.append(textContainer).append(chevron)
 
