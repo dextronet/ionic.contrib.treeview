@@ -25,7 +25,8 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         hasMoreData: '='
       compile: ($element, $attr) ->
         listEl = angular.element("<div class=\"tree-view list\">").append($element.contents())
-        $element.append(listEl);
+        infiniteScroll = angular.element("<ion-infinite-scroll ng-if=\"hasMoreData()\" on-infinite=\"fetchData()\" distance=\"1%\">")
+        $element.append(listEl).append(infiniteScroll);
         
         ($scope, $element, $attrs, ctrls) ->
 #      	  $scope.fullWidth = 2 + $element[0].parentNode.offsetWidth + 'px'
