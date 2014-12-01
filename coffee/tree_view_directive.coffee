@@ -29,8 +29,7 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         $element.append(listEl).append(infiniteScroll);
         
         ($scope, $element, $attrs, ctrls) ->
-#      	  $scope.fullWidth = 2 + $element[0].parentNode.offsetWidth + 'px'
-          $scope.fullWidth = document.body.clientWidth + 'px'
+          $scope.fullWidth = '100%';
           
           buildTreeRows = (items, level, number, visible) ->
             # set custom 
