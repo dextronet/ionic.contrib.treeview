@@ -48,11 +48,17 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 #          showCheckbox = $scope.row.showCheckbox || ($scope.showCheckboxes && $scope.row.showCheckbox != false)
 #          if showCheckbox
 #            treeItemCheckboxClass = "tree-item-with-checkbox"
-          checkbox = angular.element("<label
-            ng-if=\"row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)\"
-            class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.item.done\" 
-            ng-click=\"checkboxClick($event, row)\">
-            </label>") 
+#          checkbox = angular.element("<label
+#            ng-if=\"row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)\"
+#            class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.item.done\" 
+#            ng-click=\"checkboxClick($event, row)\">
+#            </label>"#) 
+          checkbox = angular.element("<label 
+              ng-if=\"!(row.showCheckbox || (showCheckboxes && row.showCheckbox !== false))\"
+              style=\"height: 28px; width: 1px; float: left; padding-left: 3px;\"></label>
+              <label ng-if=\"row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)\" 
+                class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.item.done\" ng-click=\"checkboxClick($event, row)\">
+            </label>")
 #          else
 #            treeItemCheckboxClass = ""
 

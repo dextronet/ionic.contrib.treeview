@@ -11,7 +11,7 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
       ]
       #controller: "$treeView"
       template: "<tree-item ng-style=\"{width: fullWidth}\" 
-        collection-item-width=\"'100%'\" collection-item-height=\"54\" 
+        collection-item-width=\"'100%'\" collection-item-height=\"itemHeight\" 
         collection-repeat=\"row in treeRows | filter:{visible:true} track by row.item.id\" 
         row=\"row\">{{row.item.name}}</tree-item>",
       scope: 
@@ -22,7 +22,8 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         showCheckboxes: '='
         showNumbers: '='
         fetchData: '=',
-        hasMoreData: '='
+        hasMoreData: '=',
+        itemHeight: '='
       compile: ($element, $attr) ->
         listEl = angular.element("<div class=\"tree-view list\">").append($element.contents())
         infiniteScroll = angular.element("<ion-infinite-scroll ng-if=\"hasMoreData()\" on-infinite=\"fetchData()\" distance=\"1%\">")
