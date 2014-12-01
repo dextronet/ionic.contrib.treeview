@@ -56,9 +56,13 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 #          else
 #            treeItemCheckboxClass = ""
 
+          # `true` instead of `row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)`
+          # it's just days before release, CSS is set this way right now, ...
+          # let's leave it as it is for now. The problem is that class tree-item-with-checkbox
+          # will be there even for elements WITHOUT checkboxes - needs refactoring
           containerLink = angular.element("<a 
             class=\"item-content item-icon-right\" 
-            ng-class=\"{'tree-item-with-number': showNumbers, 'tree-item-with-checkbox': row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)}\"
+            ng-class=\"{'tree-item-with-number': showNumbers, 'tree-item-with-checkbox': true}\"
             ng-click=\"rowClick(row)\"
             ng-style=\"getTreePadding(row)\"
             ></a>")
