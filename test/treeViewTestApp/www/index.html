@@ -34,7 +34,10 @@
         <div class="h1 title">TestApp</div>
       </ion-header-bar>
       <ion-content>
-        <tree-view items="tree_items" 
+        <!--ion-list>
+          <ion-item style="width: 100%" collection-repeat="row in tree_items track by row.item.id" collection-item-width="'100%'" collection-item-height="70"><label class="checkbox"><input type="checkbox" ng-checked="row.done" ng-click="checkboxClick($event, row)"></label>{{row.item.name}}</ion-item>
+        </ion-list-->
+        <tree-view items="items" 
           item-height="54"
           show-checkboxes="showCheckboxes"
           show-numbers="showNumbers"

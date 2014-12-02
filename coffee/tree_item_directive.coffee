@@ -10,13 +10,12 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
         ($scope, $element) ->
           $scope.toggle = ($event, row) ->
             $event.stopPropagation()
-            row.item.expanded = !row.item.expanded
+            row.expanded = !row.expanded
             $scope.onExpandChange({ row: row })
 
           $scope.checkboxClick = ($event, row) ->
             $event.stopPropagation()
-            # todo: configurable
-            row.item.done = !row.item.done
+            row.$treeview.checked = !row.$treeview.checked
             $scope.onCheckboxChange({ row: row })
 
           $scope.rowClick = (row) ->
@@ -27,21 +26,21 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 
         link = ($scope, $element, $attrs) ->
           $scope.getTreePadding = (row) ->
-            padding = row.level * 40
+            padding = row.$treeview.level * 40
             return { 'padding-left': padding + 'px' }
           
           $scope.getVisibility = (row) ->
-            if row.item.hideExpander
+            if row.$treeview.hideExpander
               return 'hidden'
             else
-              if row.item.children?.length > 0
+              if row.children?.length > 0
                 'visible'
               else
                 'hidden'
 
 #          if $scope.showNumbers
 #          treeItemNumberClass = "tree-item-with-number"
-          number = angular.element("<span ng-if=\"showNumbers\" class=\"tree-item-number\">{{row.number.join('.')}}:</span>")
+          number = angular.element("<span ng-if=\"showNumbers\" class=\"tree-item-number\">{{row.$treeview.number.join('.')}}:</span>")
 #          else
 #            treeItemNumberClass = ""
 
@@ -54,10 +53,10 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 #            ng-click=\"checkboxClick($event, row)\">
 #            </label>"#) 
           checkbox = angular.element("<label 
-              ng-if=\"!(row.showCheckbox || (showCheckboxes && row.showCheckbox !== false))\"
+              ng-if=\"!(row.$treeview.showCheckbox || (showCheckboxes && row.$treeview.showCheckbox !== false))\"
               style=\"height: 28px; width: 1px; float: left; padding-left: 3px;\"></label>
-              <label ng-if=\"row.showCheckbox || (showCheckboxes && row.showCheckbox !== false)\" 
-                class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.item.done\" ng-click=\"checkboxClick($event, row)\">
+              <label ng-if=\"row.$treeview.showCheckbox || (showCheckboxes && row.$treeview.showCheckbox !== false)\" 
+                class=\"checkbox\"><input type=\"checkbox\" ng-checked=\"row.$treeview.checked\" ng-click=\"checkboxClick($event, row)\">
             </label>")
 #          else
 #            treeItemCheckboxClass = ""
@@ -74,7 +73,7 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
             ></a>")
 
           chevron = angular.element("<a class=\"expand-button icon ion-chevron-down\" 
-            ng-class=\"{'tree-item-expanded': row.item.expanded}\" 
+            ng-class=\"{'tree-item-expanded': row.expanded}\" 
             ng-style=\"{'visibility': getVisibility(row)}\"
             ng-click=\"toggle($event, row)\"></a>")
 

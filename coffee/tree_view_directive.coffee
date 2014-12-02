@@ -12,8 +12,8 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
       #controller: "$treeView"
       template: "<tree-item ng-style=\"{width: fullWidth}\" 
         collection-item-width=\"'100%'\" collection-item-height=\"itemHeight\" 
-        collection-repeat=\"row in treeRows | filter:{visible:true} track by row.item.id\" 
-        row=\"row\">{{row.item.name}}</tree-item>",
+        collection-repeat=\"row in treeRows | filter:filterExpanded() track by row.id\" 
+        row=\"row\">{{row.name}}</tree-item>",
       scope: 
         onExpandChange: '&'
         onCheckboxChange: '&'
@@ -30,7 +30,11 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
         $element.append(listEl).append(infiniteScroll);
         
         ($scope, $element, $attrs, ctrls) ->
+          treeRows = []
           $scope.fullWidth = '100%';
+
+          $scope.filterExpanded = ->
+            (row) -> row.$treeview.visible is true
           
           buildTreeRows = (items, level, number, visible) ->
             # set custom 
@@ -38,31 +42,37 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
               $element.parent()[0]?.style.height = $attrs.scrollHeight;
             
             number = [] unless number
+            
             for item, index in items
               rowNumber = number.slice()
               rowNumber.push index + 1
-              row =
-                item: item
-                level: level
-                number: rowNumber
-                showCheckbox: item.showCheckbox
-              if item.visible == false
-                row.visible = item.visible
-              else
-                row.visible = visible
-              $scope.treeRows.push row
+              
+              # Allow predefining some config option from outside this directive.
+              item.$treeview = {} unless item.$treeview
+
+              # Non-customizable config options
+              item.$treeview.level = level
+              item.$treeview.rowNumber = rowNumber
+              
+              # Customizable config option
+              item.$treeview.showCheckbox = null if item.$treeview.showCheckbox is undefined
+              item.$treeview.visible = if item.visible is false then false else visible
+              item.$treeview.checked = false if item.$treeview.checked is undefined
+              item.$treeview.hideExpander = if item.hideExpander isnt undefined then item.hideExpander else false
+              item.expanded = false if item.expanded is undefined
+
+              treeRows.push item
+              
               childrenVisible = visible and item.expanded
               buildTreeRows item.children, level + 1, rowNumber, childrenVisible if item.children
 
           init = ->
-            $scope.treeRows = []
+            #console.log 'REBUILD'
+            treeRows = []
             buildTreeRows $scope.items, 0, null, true
+            $scope.treeRows = treeRows
 
           $scope.$watch 'items', init, true
-
-            #listEl.append $compile(angular.element("<tree-item>#{item.name}</tree-item>"), item)($scope)
-
-          #$timeout init
 
           return
     )
