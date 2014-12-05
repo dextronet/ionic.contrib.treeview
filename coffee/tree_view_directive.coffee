@@ -52,7 +52,7 @@ angular.module('ionic.contrib.TreeView', ['ionic'])
 
               # Non-customizable config options
               item.$treeview.level = level
-              item.$treeview.rowNumber = rowNumber
+              item.$treeview.number = rowNumber
               
               # Customizable config option
               item.$treeview.showCheckbox = null if item.$treeview.showCheckbox is undefined

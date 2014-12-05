@@ -18,8 +18,9 @@ angular.module('starter', ['ionic', 'ionic.contrib.TreeView'])
   });
 })
 
-.controller('TestCtrl', function($scope) {
-  $scope.items = [
+.controller('TestCtrl', function($scope, $timeout) {
+  var data = {}
+  data.items = [
     { id: 1, name: 'Test Item 1', expanded: true, $treeview: { showCheckbox: true }, children: [ 
       { id: 3, name: 'A long label or name for this subitem should work properly', children: 
         [
@@ -31,7 +32,12 @@ angular.module('starter', ['ionic', 'ionic.contrib.TreeView'])
     { id: 200, name: 'Test Item 2', $treeview: { showCheckbox: true } },
     { id: 201, name: 'Test Item 2', $treeview: { showCheckbox: true } },
     { id: 202, name: 'Test Item 2', $treeview: { showCheckbox: true } },
-    { id: 203, name: 'Test Item 2' },
+    { id: 203, name: 'Test Item 2', children: 
+        [
+          { id: 33, name: "Subsubitem", $treeview: { showCheckbox: true } },
+          { id: 34, name: "Third degree subtask with long item name" }
+        ] 
+    },
     { id: 204, name: 'Test Item 2' },
     { id: 205, name: 'Test Item 2', $treeview: { showCheckbox: true } },
     { id: 206, name: 'Test Item 2' },
@@ -62,6 +68,8 @@ angular.module('starter', ['ionic', 'ionic.contrib.TreeView'])
     { id: 231, name: 'Test Item 2' }
   ];
 
+  $scope.items = data.items;
+
   var treeRows = []
   function buildTreeRows(items) {
     items.forEach(function(item) {
@@ -87,7 +95,7 @@ angular.module('starter', ['ionic', 'ionic.contrib.TreeView'])
 
   $scope.showCheckboxes = false;
 
-  $scope.showNumbers = false;
+  $scope.showNumbers = true;
 
   $scope.expandChange = function(row) {
     console.log(row);
@@ -133,6 +141,16 @@ angular.module('starter', ['ionic', 'ionic.contrib.TreeView'])
     }
 
     collapse($scope.tree_items);
+  }
+
+  $scope.refresh = function() {
+    var items = data.items.slice();
+    items[0].name = "REFERSHED"
+    data.items = items;
+    $timeout(function() {
+      $scope.items = data.items;
+    }, 0);
+    //$scope.$digest()
   }
 })
 
