@@ -26,7 +26,7 @@ angular.module('ionic.contrib.TreeView').directive "treeItem", [
 
         link = ($scope, $element, $attrs) ->
           $scope.getTreePadding = (row) ->
-            padding = row.$treeview.level * 40
+            padding = row.$treeview.level * 20
             return { 'padding-left': padding + 'px' }
           
           $scope.getVisibility = (row) ->

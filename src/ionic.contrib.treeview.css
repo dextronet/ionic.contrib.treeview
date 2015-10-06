@@ -11,13 +11,13 @@
     padding-top: 1px;
     float: left; }
   .tree-item .checkbox {
-    padding: 0 0 0 14px;
+    padding: 0 0 0 10px;
     float: left; }
   .tree-item .tree-item-text {
     display: inline-block;
     padding-top: 1px;
     padding-left: 15px;
-    padding-right: 50px;
+    padding-right: 40px;
     padding-bottom: 1px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -29,7 +29,7 @@
     .tree-item .tree-item-with-checkbox .tree-item-text {
       padding-top: 4px;
       padding-bottom: 0;
-      padding-left: 11px; }
+      padding-left: 7px; }
   .tree-item .tree-item-with-number .checkbox {
     padding-left: 11px; }
   .tree-item .tree-item-with-number.tree-item-with-checkbox .tree-item-text {
